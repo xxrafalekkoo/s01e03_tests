@@ -1,5 +1,20 @@
 # Local validation — 2026-10-30
 
+## Course-ticket signature correction
+
+Authoritative start-challenge brief confirmed that the exact issued ticket belongs in the public page's
+`signature:` frontmatter. Replaced the earlier harness-authored placeholder in the new proposed decision;
+no ticket copies were added to tests or evidence. The test reads the signature from source and calls the
+actual `deskRef` function; it does not hardcode a receipt or rendered reference.
+
+Re-ran `npm run evidence && npm run build && npm test`: real static build succeeded and all 11 tests passed.
+Fresh loopback Chrome reload displays derived desk ref `DR-X0DV-26VF`, no old reference or missing-signature
+fallback. Four KB routes returned 200; 31 checked CSS/script assets returned 200, no console warnings/errors.
+Cause table still shows 379 parser and 33 hint, timeline has 54 bars, historical triage stale warning remains.
+Original export/accepted decisions and issue bodies/counts remain unchanged. Current source/build correction
+is local pending separately approved commit/push; no claim or course acceptance yet. Earlier validation below
+records the previous placeholder-signature build, not the current signing contract.
+
 This is a local-preparation checkpoint, not a publication receipt or course acceptance.
 
 ## Repeatable commands

@@ -4,7 +4,7 @@ title: '0002 · Group reports by cause, not subject'
 owner: mega-dev-agent
 status: proposed
 reviewed: 2026-10-30
-signature: 'mega-dev-agent · S01E03'
+signature: 'v1.eyJzdWIiOiIxNjA4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNjg4NzUsImV4cCI6MTc5MzQ1NTI3NX0.EEoiFCTpr33651XOFdZ76vHUEEGa7WmdmU5-_VOEZbw'
 ---
 
 <script>

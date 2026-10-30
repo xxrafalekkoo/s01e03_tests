@@ -56,6 +56,11 @@ describe('export reconciliation through actual Vite glob imports', () => {
 
 describe('real static desk artifact', () => {
   it('contains rendered counts, layout metadata, signature reference, and all timeline bars', () => {
+    const source = readFileSync('src/routes/kb/decisions/0002-dedupe-by-cause/+page.svx', 'utf8');
+    const signature = source.match(/^signature: '([^']+)'$/m)?.[1];
+    // Read the one public signature input, never duplicate the course ticket in fixtures or failure output.
+    expect(Boolean(signature?.match(/^v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/))).toBe(true);
+    expect(source.trimEnd().endsWith('<RenderStamp {signature} />')).toBe(true);
     const html = readFileSync('build/kb/decisions/0002-dedupe-by-cause/index.html', 'utf8');
     expect(html).toContain('0002 · Group reports by cause, not subject');
     expect(html).toContain('mega-dev-agent');
@@ -63,7 +68,7 @@ describe('real static desk artifact', () => {
     expect(html).toContain('379');
     expect(html).toContain('33');
     expect(html).toContain('412');
-    expect(html).toContain(deskRef('mega-dev-agent · S01E03'));
+    expect(html.includes(deskRef(signature!))).toBe(true);
     expect(html).not.toContain('no desk ref:');
     expect(html).toContain('https://github.com/xxrafalekkoo/s01e03_tests/issues/1');
     expect(html).toContain('https://github.com/xxrafalekkoo/s01e03_tests/issues/2');

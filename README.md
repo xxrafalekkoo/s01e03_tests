@@ -47,12 +47,14 @@ the parser explains every symptom. Do not invent a separately counted timezone i
 Intake guesses misclassify 38 IDs. July mass merges are not incident onset or proof of recovery.
 
 All original export files are preserved byte-for-byte, including accepted decision 0001. The new record is
-truthfully `proposed`, signed by the harness, not approved on behalf of the support desk.
+truthfully `proposed`, signed with the exact course-issued start-challenge ticket, not approved on behalf of the support desk.
 
 Two GitHub issues were created with explicit approval; the new page links their actual returned URLs.
 Source and static output are prepared for separately approved commit/push. No public hosting is required
 on available course evidence. Scan the publication set again before publishing a revised build.
 `.idea/`, dependencies and intermediate caches are excluded; `support-kb/build/` is intentionally deliverable.
 
-The course's authoritative submission action/field schema has not been supplied. No guessed payload has been sent.
+The authoritative start-challenge brief requires its ticket as the page's frontmatter signature and supplies
+claim-challenge with a single `repo` answer field (owner/name or GitHub link). The signature remains valid on
+the page after ticket expiry. Keep receipt handling outside logs and fixtures; no guessed payload has been sent.
 Publication and local validation do not establish Challenge completion: explicit course acceptance is still required.
