@@ -1,0 +1,87 @@
+---
+layout: runbook
+title: '0002 · Group reports by cause, not subject'
+owner: mega-dev-agent
+status: proposed
+reviewed: 2026-10-30
+signature: 'mega-dev-agent · S01E03'
+---
+
+<script>
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import InvestigationSummary from '#lib/kb/InvestigationSummary.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## Decision and status
+
+Proposed replacement for [accepted decision 0001](/kb/decisions/0001-dedupe-by-subject).
+The accepted record is preserved, not retroactively edited. Desk approval has not been recorded.
+Use the tenant, channel, booking-form version and evidence of mechanism to decide whether reports share a cause.
+Do not merge unknown-tenant reports just because their subjects match; establish their context first.
+
+<Callout>
+The old subject-only rule and “one issue” incident narrative disagree with their executable views.
+Accepted is a workflow status, not proof that guidance is current. The old accepted guidance is stale;
+the newer incident narrative is also contradicted by its own table.
+</Callout>
+
+## What the export establishes
+
+The source ticket [#4471](/kb/incidents/4471) combines two date mechanisms.
+That source-system identifier is not a new GitHub issue number.
+
+<CauseTable ticket={4471} />
+
+**Parser:** the shared parser interprets dates month first, despite the tenant's day-first locale.
+App/email reports and booking-v2 form reports fall here. Expected: interpret the tenant's date as intended,
+not the month-first swap. Representative source reports: `R-41200`, `R-41201`.
+
+**Hint:** booking-v3 prints `MM/DD/YYYY`, prompting month-first input, but its form interprets that input
+in the tenant's day-first order. Expected: the hint and interpretation agree. Representative source reports:
+`R-41230`, `R-41241`, `R-41251` (copper.studio, alder.physio, pale.harbour).
+
+Public tickets: [parser issue #1](https://github.com/xxrafalekkoo/s01e03_tests/issues/1)
+and [hint issue #2](https://github.com/xxrafalekkoo/s01e03_tests/issues/2).
+The table's “no ticket of its own” describes the supplied export, not the state of GitHub.
+
+<InvestigationSummary />
+
+Browser locale and `meta.intakeTag` are intake guesses. The tenant directory supplies the actual locale and form version.
+All configured tenant locales are day-first according to runtime Intl ordering, not a hand-maintained country list.
+
+## Dedupe by mechanism
+
+Matching subjects can hide different causes: alder.physio form and app reports split despite identical wording;
+copper.studio and morrow.tax form reports also split. Different subjects can share a cause:
+pale.harbour and alder.physio forms belong together; kettle.books app and email belong together.
+These are reproducible classifier cases, not a claim that every similarly worded report has been diagnosed.
+
+<DedupeExplorer />
+
+## Arrival is not merge activity
+
+<QueueTimeline ticket={4471} />
+
+The July merge spike reflects backlog consolidation. Reports existed beforehand and continued afterwards.
+The latest exported body says the reporter has stopped reporting these but a colleague encouraged this report;
+that is a reason not to interpret a quiet queue as recovery. This export cannot establish live service health,
+a shipped fix, or the number of unreported failures. The old page's “fix queued” is not delivery evidence.
+
+## Unresolved symptoms and evidence boundary
+
+The desk-noted bodies include a one-day shift, a June-only pattern, an invite arriving before booking,
+and different dates in Lisbon and Toronto. Those symptoms deserve follow-up with original timestamps,
+timezones, input values and reproduction steps. Tenant/channel classification files them under parser;
+it does not prove that the parser explains each body. Do not silently drop them, move them to hint,
+or open a separately counted timezone issue without evidence for that mechanism.
+
+Sources: exported `reports-4471.json`, `desk-notes.json`, tenant directory, `causes.ts`, `locales.ts`,
+`dedupe-cases.ts` and `QueueTimeline.svelte`. The deterministic `evidence/report-causes.json` maps each
+unique source ID to its runtime cause. Tests reconcile it with independent JSON analysis.
+Snapshot exported 2026-10-04; this review adds no live production data.
+
+<RenderStamp {signature} />
